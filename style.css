@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    background-color: #1f1f1f; 
+    background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom, rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg, #670d10 0%,#092756 100%);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    color: #d8e9ef;
+}
+
+#app-container {
+    position: relative;
+    margin: 0 auto;
+    width: 180px;
+    height: 200px;
+  }
+  
+#app-message {
+    height: 1rem;
+    margin: auto auto 1.5rem auto;
+}
+
+#app-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app-counter p {
+    font-size: 3rem;
+    margin: 0 auto;
+}
+
+.app-button {
+    width: 100%;
+    padding: 12px 24px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+  
+.app-button:hover,
+.app-button:focus {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}
+  
+.app-button:active {
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.26);
+}
+  
+#start-button {
+    background-color: #ff4f81;
+}
+
+#stop-button {
+    background-color: #c78196;
+}
+
+.hidden {
+    display: none;
+    cursor: not-allowed;
+}
