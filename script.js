@@ -2,16 +2,22 @@ const startButton = document.getElementById("start-button");
 const stopButton = document.getElementById("stop-button");
 const minutesSpan = document.getElementById("minutes");
 const secondsSpan = document.getElementById("seconds");
-const appMessage = document.getElementById("app-message")
+const appMessage = document.getElementById("app-message");
 
-let myInterval;
+let sessionInterval;
+const initialMinutes = 25; // Set your default value here in one place
+
+// Set initial values dynamically when the page loads
+window.onload = () => {
+    resetTimerDisplay(initialMinutes, 0);
+}
 
 function stopTimer() {
     stopButton.classList.add("hidden");
     startButton.classList.remove("hidden");
-    appMessage.textContent = "Press start for new session";
+    appMessage.textContent = "Press start for a new session";
 
-    clearInterval(myInterval);
+    clearInterval(sessionInterval);
     beep(500, 440, 0.5);
 }
 
@@ -21,14 +27,15 @@ function startTimer() {
     appMessage.textContent = "Focus...";
     beep(500, 350, 0.5);
 
-    const sessionAmount = Number.parseInt(minutesSpan.textContent);
-    let totalSeconds = sessionAmount * 60;
+    // Reset the timer using the initial value
+    resetTimerDisplay(initialMinutes, 0);
+
+    let totalSeconds = initialMinutes * 60;
 
     const updateSeconds = () => {
         if (totalSeconds <= 0) {
-            clearInterval(myInterval);
-            secondsSpan.textContent = "00";
-            minutesSpan.textContent = "00";
+            clearInterval(sessionInterval);
+            resetTimerDisplay(0, 0);
             beep(500, 440, 0.5);
             return;
         }
@@ -38,13 +45,18 @@ function startTimer() {
         let minutesLeft = Math.floor(totalSeconds / 60);
         let secondsLeft = totalSeconds % 60;
 
-        // update timer in html
-        secondsSpan.textContent = secondsLeft < 10 ? "0" + secondsLeft : secondsLeft;
-        minutesSpan.textContent = minutesLeft < 10 ? "0" + minutesLeft : minutesLeft;
+        // Update timer in HTML
+        resetTimerDisplay(minutesLeft, secondsLeft);
     }
 
-    // start js timer
-    myInterval = setInterval(updateSeconds, 1000);
+    // Start JS timer
+    sessionInterval = setInterval(updateSeconds, 1000);
+}
+
+function resetTimerDisplay(minutes, seconds) {
+    // Function to update the display values for the timer
+    minutesSpan.textContent = minutes < 10 ? "0" + minutes : minutes;
+    secondsSpan.textContent = seconds < 10 ? "0" + seconds : seconds;
 }
 
 function beep(duration, frequency, volume) {
@@ -62,5 +74,5 @@ function beep(duration, frequency, volume) {
     oscillator.start();
     setTimeout(() => {
         oscillator.stop();
-    }, duration); //beep time in ms
+    }, duration); // beep time in ms
 }
